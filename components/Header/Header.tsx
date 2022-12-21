@@ -1,25 +1,27 @@
 import styles from './Header.module.css'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap';
 
 export default function Header() {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
     const root = useRef(null);
-    const timeline = gsap.timeline({repeat: 1});
+
+    const timelineRef = useRef<gsap.core.Timeline | null>(null);
     const onClick = () => {
-        if (timeline.isActive()) {
-            timeline.restart()
-        } else {
-            timeline.to(root.current, { rotation: "+=360", duration: 3 });
+        timelineRef.current?.play();
+        if(!timelineRef.current?.isActive()){
+            timelineRef.current?.restart();
         }
-
-
     }
-
     useEffect(() => {
+        timelineRef.current = gsap
+            .timeline({ paused: true })
+            .to(root.current, { rotation: "+=360", duration: 3});
 
-
+        return () => {
+            timelineRef.current?.kill();
+        };
     }, [])
 
     return (
@@ -27,7 +29,7 @@ export default function Header() {
             <header className={styles.header}>
                 <div className={styles.content} >
                     <h1 ref={root} className={styles.h1}>This is a Website</h1>
-                    <button ref={button} onClick={() => onClick()}>Clicky Clicky</button>
+                    <button ref={button} onClick={(e) => onClick()}>Clicky Clicky</button>
                 </div>
 
                 <nav className={styles.nav}><h3>Where do you wanna go?</h3>
