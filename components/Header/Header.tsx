@@ -8,7 +8,7 @@ export default function Header() {
     const root = useRef(null);
 
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
-    const onClick = (e) => {
+    const onClick = () => {
         timelineRef.current?.play();
         if(!timelineRef.current?.isActive()){
             timelineRef.current?.restart();
@@ -29,7 +29,7 @@ export default function Header() {
             <header className={styles.header}>
                 <div className={styles.content} >
                     <h1 ref={root} className={styles.h1}>This is a Website</h1>
-                    <button ref={button} onClick={(e) => onClick(e)}>Clicky Clicky</button>
+                    <button ref={button} onClick={(e) => onClick()}>Clicky Clicky</button>
                 </div>
 
                 <nav className={styles.nav}><h3>Where do you wanna go?</h3>
