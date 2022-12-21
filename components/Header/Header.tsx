@@ -5,7 +5,7 @@ import gsap from 'gsap';
 export default function Header() {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
-    const root = useRef();
+    const root = useRef(null);
     const onClick = () => {
 
         gsap.to(root.current, { rotation: "+=360" });
