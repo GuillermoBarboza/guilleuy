@@ -2,6 +2,8 @@ import styles from './Header.module.css'
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap';
 
+import Nav from '../Nav/Nav';
+
 export default function Header() {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
@@ -32,13 +34,7 @@ export default function Header() {
                     <button ref={button} onClick={(e) => onClick()}>Clicky Clicky</button>
                 </div>
 
-                <nav className={styles.nav}><h3>Where do you wanna go?</h3>
-                    <ul>
-                        <li><button>to the m00n...</button></li>
-                        <li><button>I wanna go biking</button></li>
-                        <li><button>just a chill trip</button></li>
-                    </ul>
-                </nav>
+                <Nav />
             </header>
         </>
     )
