@@ -1,10 +1,12 @@
 import Head from 'next/head'
+import React, { useRef, RefObject } from 'react'
 import styles from '../styles/Home.module.css'
 
 import Header from '../components/Header/Header'
 import Background from '../components/Background/Background'
 
 export default function Home() {
+  let galaxyBkg = useRef(null);
   return (
     <>
       <Head>
@@ -14,10 +16,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header galaxyBkg={galaxyBkg}/>
       <main className={styles.main}>
-        <Background>
-          
+        <Background galaxyBkg={galaxyBkg}>
+
         </Background>
       </main>
       <footer>

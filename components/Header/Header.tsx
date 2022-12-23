@@ -5,27 +5,31 @@ import gsap from 'gsap';
 import Nav from '../Nav/Nav';
 import Background from '../Background/Background';
 
-export default function Header() {
+export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLDivElement> | null }) {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
     const root = useRef(null);
 
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
     const onClick = () => {
+        console.log(galaxyBkg)
         timelineRef.current?.play();
         if (!timelineRef.current?.isActive()) {
             timelineRef.current?.restart();
         }
     }
     useEffect(() => {
-        timelineRef.current = gsap
-            .timeline({ paused: true })
-            .to(root.current, { rotation: "+=360", duration: 3 });
+        if (galaxyBkg !== null) {
+            timelineRef.current = gsap
+                .timeline({ paused: true })
+                .to(root.current, { rotation: "+=360", duration: 3 })
+                .to(galaxyBkg.current, { filter: "hue-rotate(870deg)", duration: 3 }, 0)
+        }
 
         return () => {
             timelineRef.current?.kill();
         };
-    }, [])
+    }, [galaxyBkg])
 
     return (
         <>

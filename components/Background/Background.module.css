@@ -2,6 +2,8 @@
     background-image: url('../../assets/images/nebulosa.png');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: bottom;
+    filter: brightness(0.7) hue-rotate(99deg);
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50vh;

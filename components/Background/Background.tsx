@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap';
 import nebulosa from '../../assets/images/nebulosa.png'
 
-export default function Background({ children }: {children: React.ReactNode}) {
+export default function Background({ children, galaxyBkg }: {children: React.ReactNode, galaxyBkg: React.RefObject<HTMLDivElement> | null}) {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
     const root = useRef(null);
@@ -15,7 +15,7 @@ export default function Background({ children }: {children: React.ReactNode}) {
 
     return (
         <>
-            <div ref={root} className={styles.background}>
+            <div ref={galaxyBkg} className={styles.background}>
                 {children}
             </div>
         </>
