@@ -11,7 +11,7 @@ export default function Background({ children, galaxyBkg }: {children: React.Rea
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
     useEffect(() => {
-    }, [])
+    }, [galaxyBkg])
 
     return (
         <>

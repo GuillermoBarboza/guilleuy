@@ -1,9 +1,8 @@
 import styles from './Header.module.css'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap';
 
 import Nav from '../Nav/Nav';
-import Background from '../Background/Background';
 
 export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLDivElement> | null }) {
 
@@ -12,18 +11,32 @@ export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLD
 
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
     const onClick = () => {
-        console.log(galaxyBkg)
         timelineRef.current?.play();
-        if (!timelineRef.current?.isActive()) {
+        if (!timelineRef.current?.isActive() && galaxyBkg !== null) {
+            timelineRef.current?.to(galaxyBkg.current, {
+                filter: `brightness(${genRandom(0.7, 0.8, true)}) hue-rotate(${genRandom(360, 1200)}deg)`,
+                duration: 3
+            }, 0)
             timelineRef.current?.restart();
+
         }
     }
+
+    function genRandom(min: number, max: number, nofloor?: boolean) {
+        return nofloor ?
+            Math.random() * (max - min) + 0.7
+            : Math.floor(Math.random() * (max - min));
+    }
+
     useEffect(() => {
         if (galaxyBkg !== null) {
             timelineRef.current = gsap
                 .timeline({ paused: true })
-                .to(root.current, { rotation: "+=360", duration: 3 })
-                .to(galaxyBkg.current, { filter: "hue-rotate(870deg)", duration: 3 }, 0)
+                .to(root.current, {
+                    rotation: "+=360",
+                    duration: 3
+                })
+
         }
 
         return () => {
@@ -36,7 +49,7 @@ export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLD
             <header className={styles.header}>
                 <div className={styles.content} >
                     <h1 ref={root} className={styles.h1}>This is a Website</h1>
-                    <button ref={button} onClick={(e) => onClick()}>Clicky Clicky</button>
+                    <button ref={button} onClick={() => onClick()}>Clicky Clicky</button>
                 </div>
                 <Nav />
             </header>
