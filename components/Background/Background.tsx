@@ -1,29 +1,22 @@
 import styles from './Background.module.css'
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap';
+import nebulosa from '../../assets/images/nebulosa.png'
 
-/* import PSD from '../../assets/images/Space.psd' */
-
-export default function Background() {
+export default function Background({ children }: {children: React.ReactNode}) {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
     const root = useRef(null);
 
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
-    const onClick = () => {
-        timelineRef.current?.play();
-        if (!timelineRef.current?.isActive()) {
-            timelineRef.current?.restart();
-        }
-    }
+
     useEffect(() => {
-        /* console.log(PSD) */
     }, [])
 
     return (
         <>
-            <div className={styles.header}>
-
+            <div ref={root} className={styles.background}>
+                {children}
             </div>
         </>
     )

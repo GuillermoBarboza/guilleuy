@@ -16,7 +16,9 @@ export default function Home() {
       </Head>
       <Header />
       <main className={styles.main}>
-        <Background />
+        <Background>
+          
+        </Background>
       </main>
       <footer>
 
