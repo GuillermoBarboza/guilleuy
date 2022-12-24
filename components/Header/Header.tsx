@@ -4,12 +4,13 @@ import gsap from 'gsap';
 
 import Nav from '../Nav/Nav';
 
-export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLDivElement> | null }) {
+export default function Header({ galaxyBkg, asteroid }: { galaxyBkg: React.RefObject<HTMLDivElement> | null, asteroid: React.RefObject<HTMLDivElement> | null  }) {
 
     const button: React.RefObject<HTMLButtonElement> = useRef(null);
     const root = useRef(null);
-
+    const asteroidTimeline = useRef<gsap.core.Timeline | null>(null);
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
     const onClick = () => {
         timelineRef.current?.play();
         if (!timelineRef.current?.isActive() && galaxyBkg !== null) {
@@ -20,6 +21,16 @@ export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLD
             timelineRef.current?.restart();
 
         }
+
+    /*     if (!asteroidTimeline.current?.isActive() && asteroid !== null) {
+            asteroidTimeline.current?.to(asteroid.current, {
+                translateX: "20%",
+                translateY: "-30%",
+                duration: 3
+            }, 0)
+            asteroidTimeline.current?.restart();
+
+        } */
     }
 
     function genRandom(min: number, max: number, nofloor?: boolean) {
@@ -38,11 +49,23 @@ export default function Header({ galaxyBkg }: { galaxyBkg: React.RefObject<HTMLD
                 })
 
         }
+ 
+        if (asteroid !== null) {
+            asteroidTimeline.current = gsap
+                .timeline({ paused: false })
+                .to(asteroid.current, {
+                    translateX: "40%",
+                    translateY: "-60%",
+                    duration: 3
+                })
+
+        }
 
         return () => {
             timelineRef.current?.kill();
         };
-    }, [galaxyBkg])
+    }, [galaxyBkg, asteroid])
+
 
     return (
         <>
