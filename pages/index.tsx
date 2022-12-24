@@ -40,7 +40,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
 
       </Head>
-     {/*  <Script
+      {/*  <Script
         id="google-tag-manager"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -56,10 +56,11 @@ export default function Home() {
       <Header galaxyBkg={galaxyBkg} asteroid={asteroidRef} />
       <main className={styles.main}>
         <div ref={galaxyBkg} className={styles.background}>
+          <div ref={asteroidRef} className={styles.asteroidWrapper}>
+            <Image className={styles.asteroid} src={asteroid} alt={''} />
+          </div>
         </div>
-        <div ref={asteroidRef} className={styles.asteroidWrapper}>
-          <Image className={styles.asteroid} src={asteroid} alt={''} />
-        </div>
+
       </main>
       <footer>
 
