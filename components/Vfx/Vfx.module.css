@@ -14,3 +14,17 @@
   flex-direction: column;
   height: 100vh;
 }
+
+.link {
+    position: absolute;
+    bottom: 0;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 200px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    align-items: center;
+}

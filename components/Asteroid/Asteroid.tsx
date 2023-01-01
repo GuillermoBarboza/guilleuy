@@ -5,49 +5,66 @@ import Image from 'next/image'
 
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import gsap from 'gsap';
+import { reverse } from 'dns/promises';
 
 
 gsap.registerPlugin(MotionPathPlugin);  /* register the MotionPath plugin */
 
 export default function Asteroid() {
-    const asteroidRef = useRef(null);
+    const asteroidRef = React.createRef<HTMLImageElement>();
+    const alertRef = React.createRef<HTMLDivElement>();
     const requestFrame = useRef(null);
     const prevFrame = useRef(null);
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
-  /*   const animate = (time: Number) => {
-        if (prevFrame.current != undefined) {
-            const deltaTime = time - prevFrame.current;
-            let { x, y } = asteroidRef.current.getBoundingClientRect();
-
-        }
-        prevFrame.current = time;
-        requestFrame.current = requestAnimationFrame(animate);
-    } */
+    /*   const animate = (time: Number) => {
+          if (prevFrame.current != undefined) {
+              const deltaTime = time - prevFrame.current;
+              let { x, y } = asteroidRef.current.getBoundingClientRect();
+  
+          }
+          prevFrame.current = time;
+          requestFrame.current = requestAnimationFrame(animate);
+      } */
 
     useEffect(() => {
-       /*  requestFrame.current = requestAnimationFrame(animate) */
+        /*  requestFrame.current = requestAnimationFrame(animate) */
 
         gsap.to(asteroidRef.current, {
             motionPath: {
                 path: "#pathAsteroid",
                 align: "#pathAsteroid",
                 alignOrigin: [0.5, 0.5],
-                autoRotate: false
+                autoRotate: true
             },
-            rotateZ: 960,
+            repeatRefresh: true,
             duration: 10,
             ease: "none",
             repeat: -1
         });
-        console.log(asteroidRef.current)
 
-        return () => {
-           /*  cancelAnimationFrame(requestFrame) */
-           /*  timeline.current?.kill(); */
+
+        if (asteroidRef.current != null && alertRef.current != null) {
+            asteroidRef.current.addEventListener('click', () => {
+                if (alertRef.current != null) {
+                    gsap.to(document.querySelector('h1'), {
+                        translateY: alertRef.current.classList.contains(styles.hidden) ? -100 : 0,
+                        duration: 1.2,
+                    })
+                    alertRef.current.classList.toggle(styles.hidden)
+                }
+
+                /* window.location.href =  window.location.href + 'develop' */
+            })
         }
 
-    }, [asteroidRef])
+
+        return () => {
+            /*  cancelAnimationFrame(requestFrame) */
+            /*  timeline.current?.kill(); */
+        }
+
+    }, [asteroidRef, alertRef])
 
     return (
         <>
@@ -69,7 +86,21 @@ export default function Asteroid() {
                     src={asteroid}
                     alt={''} />
 
+                <div ref={alertRef} className={[styles.alert, styles.hidden].join(' ')}>
+                    <p>Do you wanna see whats in the dak part of this asteroid?</p>
+                    <button onClick={(e) => {
+                        gsap.to(alertRef.current, {
+                            skewX: 90,
+                            duration: 2.6,
+                            ease: 'power4.out'
+                        })
+                        setTimeout(() => {
+                            window.location.href = window.location.href + 'develop'
+                        }, 2500)
 
+                    }}>Yes</button>
+                    <div></div>
+                </div>
             </div>
         </>
     )

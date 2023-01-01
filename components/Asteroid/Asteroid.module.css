@@ -24,3 +24,23 @@
 .pathAsteroid {
     stroke: none;
 }
+
+.alert {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    background: transparent;
+    width: 150px;
+    transform: translate(-50%, -50%);
+}
+
+.alert p {
+    background-color: whitesmoke;
+    overflow-wrap: break-word;
+    padding: 8px;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
