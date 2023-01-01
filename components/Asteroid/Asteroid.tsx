@@ -44,7 +44,7 @@ export default function Asteroid() {
         });
 
 
-        if (asteroidRef != null && alertRef.current != null) {
+        if (asteroidRef.current != null && alertRef.current != null) {
             asteroidRef.current.addEventListener('click', () => {
                 
                 gsap.to(document.querySelector('h1'), {
