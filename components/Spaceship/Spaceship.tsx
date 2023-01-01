@@ -7,7 +7,7 @@ import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import gsap from 'gsap';
 import { reverse } from 'dns/promises';
 import { transform } from 'typescript';
-export default function Spaceship({timeline}) {
+export default function Spaceship(timeline: React.MutableRefObject<gsap.core.Timeline | null>) {
     const spaceshipRef = useRef(null);
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
 

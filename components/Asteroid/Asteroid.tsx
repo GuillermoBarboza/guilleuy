@@ -9,7 +9,7 @@ import gsap from 'gsap';
 
 gsap.registerPlugin(MotionPathPlugin);  /* register the MotionPath plugin */
 
-export default function Asteroid({ timeline }) {
+export default function Asteroid(timeline: React.MutableRefObject<gsap.core.Timeline | null>) {
     const asteroidRef = useRef(null);
     const requestFrame = useRef(null);
     const prevFrame = useRef(null);
