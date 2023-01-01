@@ -40,8 +40,8 @@ export default function Home() {
         <>
             <div className={styles.main}>
                 <Galaxy />
-                <Asteroid timeline={timelineRef} />
-                <Spaceship timeline={timelineRef}/>
+                <Asteroid  />
+                <Spaceship/>
             </div>
         </>
     )
