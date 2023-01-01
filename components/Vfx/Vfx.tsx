@@ -8,7 +8,7 @@ interface Color { r: number, g: number, b: number }
 export default function Vfx() {
     const videoRef = React.createRef<HTMLVideoElement>();
     const canvasRef = React.createRef<HTMLCanvasElement>();
-    const stepRef = useRef(null);
+    const stepRef = useRef(0);
     const prevFrame = useRef(null);
 
     function getPixelValue(imageData: ImageData, color: { r: number, g: number, b: number }): Array<{ x: number; y: number; }> {
@@ -48,28 +48,35 @@ export default function Vfx() {
                 video.srcObject = data;
                 video.play()
                 video.onloadeddata = () => {
-                    canvasRef.current.width = video.videoWidth;
 
-                    console.log(canvasRef.current?.width, video?.videoWidth)
-                    canvasRef.current.height = video.videoHeight;
-                    const ctx = canvasRef.current.getContext('2d')
+                    if (canvasRef.current != null && stepRef.current != null) {
+                        canvasRef.current.width = video.videoWidth;
+                        canvasRef.current.height = video.videoHeight;
+                        const ctx = canvasRef.current.getContext('2d')
 
-                    const animate = (time: Number) => {
-                        ctx?.drawImage(video, 0, 0, canvasRef.current.width, canvasRef.current.height)
+                        const animate = (time: Number) => {
+                            if (canvasRef.current != null && stepRef.current != null && ctx != null) {
+                                ctx?.drawImage(video, 0, 0, canvasRef.current.width, canvasRef.current.height)
 
-                        const imageData = ctx.getImageData(0, 0, canvasRef.current?.width, canvasRef.current?.height)
+                                const imageData = ctx.getImageData(0, 0, canvasRef.current?.width, canvasRef.current?.height)
 
-                        const newPixels: Array<{ x: number, y: number }> = getPixelValue(imageData, { r: 100, g: 255, b: 255 });
+                                const newPixels: Array<{ x: number, y: number }> = getPixelValue(imageData, { r: 100, g: 255, b: 255 });
 
-                        ctx.fillStyle = "yellow";
+                                ctx.fillStyle = "yellow";
 
-                        newPixels.forEach((pixel) => {
-                            ctx.fillRect(pixel.x, pixel.y, 1, 1)
-                        })
+                                newPixels.forEach((pixel) => {
+                                    ctx.fillRect(pixel.x, pixel.y, 1, 1)
+                                })
 
-                        stepRef.current = requestAnimationFrame(animate);
+                                stepRef.current = requestAnimationFrame(animate);
+                            }
+                        }
+
+                        stepRef.current = requestAnimationFrame(animate)
                     }
-                    stepRef.current = requestAnimationFrame(animate)
+
+
+
 
                 }
             }).catch((error) => { alert(error) })
