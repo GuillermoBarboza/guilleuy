@@ -3,6 +3,7 @@ import styles from './Vfx.module.css'
 
 /* import { getPixelValue } from '../../utils/getPixelValue'; */
 
+interface Color { r: number, g: number, b: number }
 
 export default function Vfx() {
     const videoRef = React.createRef<HTMLVideoElement>();
@@ -10,7 +11,7 @@ export default function Vfx() {
     const stepRef = useRef(null);
     const prevFrame = useRef(null);
 
-    function getPixelValue(imageData, color): Array<{ x: number; y: number; }> {
+    function getPixelValue(imageData: ImageData, color: { r: number, g: number, b: number }): Array<{ x: number; y: number; }> {
         let newPixels: Array<{ x: number; y: number; }> = [];
 
         for (let index = 0; index < imageData.data.length; index += 4) {
@@ -33,7 +34,7 @@ export default function Vfx() {
         return newPixels;
     }
 
-    function colorMatch(color1, color2, threshold = 60) {
+    function colorMatch(color1: Color, color2: Color, threshold = 60) {
         return (color1.r - color2.r) ** 2 +
             (color1.g - color2.g) ** 2 +
             (color1.b - color2.b) ** 2 < threshold * threshold;
