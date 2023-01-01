@@ -1,3 +1,10 @@
+My personal website, where I play and learn and practice using various tools, typescript even though its full of null checks, gsap, random tutorials I might find cool and actually get to a clean point. 
+
+hope u find it interesting.
+
+disclaimer: I will try to keep things bugless and have other incomplete features under different subdomain, always reachable from somewhere...
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
