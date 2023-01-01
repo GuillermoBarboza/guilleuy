@@ -11,8 +11,8 @@ import { reverse } from 'dns/promises';
 gsap.registerPlugin(MotionPathPlugin);  /* register the MotionPath plugin */
 
 export default function Asteroid() {
-    const asteroidRef = useRef(null);
-    const alertRef = useRef(null);
+    const asteroidRef = React.createRef<HTMLImageElement>();
+    const alertRef = React.createRef<HTMLDivElement>();
     const requestFrame = useRef(null);
     const prevFrame = useRef(null);
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
@@ -46,12 +46,14 @@ export default function Asteroid() {
 
         if (asteroidRef.current != null && alertRef.current != null) {
             asteroidRef.current.addEventListener('click', () => {
-                
-                gsap.to(document.querySelector('h1'), {
-                    translateY: alertRef.current.classList.contains(styles.hidden) ? -100 : 0,
-                    duration: 1.2,
-                })
-                alertRef.current.classList.toggle(styles.hidden)
+                if (alertRef.current != null) {
+                    gsap.to(document.querySelector('h1'), {
+                        translateY: alertRef.current.classList.contains(styles.hidden) ? -100 : 0,
+                        duration: 1.2,
+                    })
+                    alertRef.current.classList.toggle(styles.hidden)
+                }
+
                 /* window.location.href =  window.location.href + 'develop' */
             })
         }
