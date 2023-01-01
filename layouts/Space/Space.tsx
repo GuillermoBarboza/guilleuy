@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import Asteroid from '../../components/Asteroid/Asteroid'
 import Galaxy from '../../components/GalaxyBkg/Galaxy';
 import Spaceship from '../../components/Spaceship/Spaceship';
-import { SP } from 'next/dist/shared/lib/utils';
+
 
 export default function Home() {
     const [pageHeight, setHeight] = useState(0);

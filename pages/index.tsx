@@ -2,14 +2,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Script from 'next/script';
 import React, { useRef, useEffect } from 'react'
-import styles from '../styles/Home.module.css'
-
+import Home from '../layouts/Home/Home'
+import { useState } from 'react'
+import Nav from '../components/Nav/Nav';
 import Header from '../components/Header/Header'
 import asteroid from '../assets/images/asteroid.png'
 
-export default function Home() {
-  let galaxyBkg = useRef(null);
-  let asteroidRef: React.RefObject<HTMLDivElement> | undefined = useRef(null);
+const PAGES = {home: 'HOME', space: 'SPACE'}
+
+export default function Page() {
+  const [page, setPage] = useState(PAGES.home);
+
 
 
   return (
@@ -28,7 +31,7 @@ export default function Home() {
                     `
           }}
         /> */}
-        <title>Create Guille App</title>
+        <title>L.P.D.G.</title>
         <meta name="description" content="This is my personal website, I intend to use this space to explore my creativity and see if I can do something fun for the sake of. Enjoy!" />
 
         <meta property="og:title" content="La página del Guille" />
@@ -40,7 +43,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
 
       </Head>
-      {/*  <Script
+      <Script
         id="google-tag-manager"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -52,15 +55,11 @@ export default function Home() {
                     gtag('config', '${process.env.NEXT_PUBLIC_GTA_ID}');
                     `
         }}
-      /> */}
-      <Header galaxyBkg={galaxyBkg} asteroid={asteroidRef} />
-      <main className={styles.main}>
-        <div ref={galaxyBkg} className={styles.background}>
-          <div ref={asteroidRef} className={styles.asteroidWrapper}>
-            <Image className={styles.asteroid} src={asteroid} alt={''} />
-          </div>
-        </div>
-
+      />
+      <Header />
+      <Nav />
+      <main>
+        <Home />
       </main>
       <footer>
 
