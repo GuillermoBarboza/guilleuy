@@ -1,0 +1,17 @@
+.main {
+  background-color: rgb(17, 17, 29);
+  height: 100vh;
+  width: 100vw;
+}
+
+.asteroid {
+  height: 60px;
+  width: 60px;
+}
+
+.asteroidWrapper {
+  position: absolute;
+  left: 30px;
+  bottom: 25px;
+  z-index: -9;
+}

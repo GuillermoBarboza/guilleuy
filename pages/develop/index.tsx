@@ -1,19 +1,12 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Script from 'next/script';
 import React, { useRef, useEffect } from 'react'
-import Home from '../layouts/Home/Home'
+import Vfx from '../../components/Vfx/Vfx'
 import { useState } from 'react'
-import Nav from '../components/Nav/Nav';
-import Header from '../components/Header/Header'
-import asteroid from '../assets/images/asteroid.png'
 
 const PAGES = {home: 'HOME', space: 'SPACE'}
 
 export default function Page() {
-  const [page, setPage] = useState(PAGES.home);
-
-
 
   return (
     <>
@@ -31,7 +24,7 @@ export default function Page() {
                     `
           }}
         /> */}
-        <title>L.P.D.G.</title>
+        <title>L.P.D.G. VFX</title>
         <meta name="description" content="This is my personal website, I intend to use this space to explore my creativity and see if I can do something fun for the sake of. Enjoy!" />
 
         <meta property="og:title" content="La página del Guille" />
@@ -56,10 +49,9 @@ export default function Page() {
                     `
         }}
       />
-      <Header />
-      <Nav />
+    
       <main>
-        <Home />
+        <Vfx />
       </main>
       <footer>
 

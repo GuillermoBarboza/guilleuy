@@ -1,8 +1,5 @@
-.main {
-}
-
 .background {
-  background-image: url("../assets/images/nebulosa.png");
+  background-image: url("../../assets/images/nebulosa.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -18,13 +15,13 @@
 }
 
 .asteroid {
-  backdrop-filter: blur(1px);
+  height: 60px;
+  width: 60px;
 }
 
 .asteroidWrapper {
-  clip-path: ellipse(18% 17% at 51% 53%);
   position: absolute;
-  left: -230px;
-  bottom: -215px;
+  left: 30px;
+  bottom: 25px;
   z-index: -9;
 }
