@@ -1,6 +1,6 @@
 import styles from './Asteroid.module.css'
 import React, { useEffect, useState, useRef } from 'react'
-import asteroid from '../../assets/images/Asteroid.png'
+import asteroid from '../../assets/images/asteroid.png'
 import Image from 'next/image'
 
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
