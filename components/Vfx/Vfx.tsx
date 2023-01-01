@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from './Vfx.module.css'
-import useVfx from '../../hooks/useVfx';
 
 /* import { getPixelValue } from '../../utils/getPixelValue'; */
 
