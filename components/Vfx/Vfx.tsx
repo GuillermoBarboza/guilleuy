@@ -11,7 +11,7 @@ export default function Vfx() {
     const stepRef = useRef(0);
     const prevFrame = useRef(null);
 
-    function getPixelValue(imageData: ImageData, color: { r: number, g: number, b: number }): Array<{ x: number; y: number; }> {
+    function getPixelLocation(imageData: ImageData, color: { r: number, g: number, b: number }): Array<{ x: number; y: number; }> {
         let newPixels: Array<{ x: number; y: number; }> = [];
 
         for (let index = 0; index < imageData.data.length; index += 4) {
@@ -34,7 +34,40 @@ export default function Vfx() {
         return newPixels;
     }
 
-    function colorMatch(color1: Color, color2: Color, threshold = 60) {
+    function getRandomInt(max: number) {
+        return Math.floor(Math.random() * max);
+    }
+
+    function getPixelsAndApplyFilter(imageData: ImageData): ImageData {
+
+        for (let index = 0; index < imageData.data.length; index += 4) {
+
+            imageData.data[index] = imageData.data[index] + 32;
+            imageData.data[index + 1] = imageData.data[index + 1] - 15;
+            imageData.data[index + 2] = imageData.data[index + 2] + 89;
+
+        }
+        /*  let pixels: Array<{ r: number; g: number; b: number, x: number, y: number }> = [];
+ 
+         for (let index = 0; index < imageData.data.length; index += 4) {
+ 
+             const pixelIndex = index / 4;
+ 
+             const newPixel = {
+                 r: imageData.data[index],
+                 g: imageData.data[index + 1],
+                 b: imageData.data[index + 2],
+                 x: pixelIndex % imageData.width,
+                 y: Math.floor(pixelIndex / imageData.width)
+             }; 
+ 
+             pixels.push(newPixel)
+         }*/
+
+        return imageData;
+    }
+
+    function colorMatch(color1: Color, color2: Color, threshold = 160) {
         return (color1.r - color2.r) ** 2 +
             (color1.g - color2.g) ** 2 +
             (color1.b - color2.b) ** 2 < threshold * threshold;
@@ -52,22 +85,37 @@ export default function Vfx() {
                     if (canvasRef.current != null && stepRef.current != null) {
                         canvasRef.current.width = video.videoWidth;
                         canvasRef.current.height = video.videoHeight;
-                        const ctx = canvasRef.current.getContext('2d')
+                        const ctx = canvasRef.current.getContext('2d');
 
                         const animate = (time: Number) => {
                             if (canvasRef.current != null && stepRef.current != null && ctx != null) {
+
                                 ctx?.drawImage(video, 0, 0, canvasRef.current.width, canvasRef.current.height)
 
                                 const imageData = ctx.getImageData(0, 0, canvasRef.current?.width, canvasRef.current?.height)
 
-                                const newPixels: Array<{ x: number, y: number }> = getPixelValue(imageData, { r: 100, g: 255, b: 255 });
+                                /* const newPixels: Array<{
+                                    r: number;
+                                    g: number;
+                                    b: number;
+                                    x: number;
+                                    y: number;
+                                }> = getPixels(imageData); */
 
-                                ctx.fillStyle = "yellow";
+                                const newPixels: ImageData = getPixelsAndApplyFilter(imageData);
 
-                                newPixels.forEach((pixel) => {
-                                    ctx.fillRect(pixel.x, pixel.y, 1, 1)
-                                })
+                                 ctx.putImageData(newPixels, 0, 0)
 
+                                /*  newPixels.forEach((pixel) => {
+                                     
+                                     ctx.fillStyle = `rgb(${pixel.r}, ${pixel.g}, ${pixel.b})`;
+                                     ctx.fillRect(pixel.x, pixel.y, 0.5, 0.5)
+                                 }) */
+
+
+                               /*  if (time > 5000) {
+                                    debugger;
+                                } */
                                 stepRef.current = requestAnimationFrame(animate);
                             }
                         }
