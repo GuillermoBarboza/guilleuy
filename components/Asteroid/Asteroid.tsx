@@ -29,16 +29,17 @@ export default function Asteroid() {
 
     useEffect(() => {
         /*  requestFrame.current = requestAnimationFrame(animate) */
-
+        console.log(window.innerWidth / 40,window.innerWidth*2) 
         gsap.to(asteroidRef.current, {
             motionPath: {
                 path: "#pathAsteroid",
                 align: "#pathAsteroid",
                 alignOrigin: [0.5, 0.5],
-                autoRotate: true
+                autoRotate: false
             },
             repeatRefresh: true,
-            duration: 10,
+            rotateZ: window.innerWidth*2,
+            duration: window.innerWidth / 40,
             ease: "none",
             repeat: -1
         });
@@ -71,15 +72,20 @@ export default function Asteroid() {
             <div
                 className={styles.asteroidWrapper}
             >
-                <svg className={styles.svgAsteroid} width="100%" height="100%" viewBox="0 -300 1300 1300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/*  <svg className={styles.svgAsteroid} width="100%" height="100%" viewBox="0 -300 1300 1300" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                    <path id="pathAsteroid" className={styles.pathAsteroid} d="
+                    <path  className={styles.pathAsteroid} d="
                     M 100, 100
                     m -75, 0
                     a 75,75 0 1,0 150,0
                     a 75,75 0 1,0 -150,0" fill="none" />
 
+                </svg> */}
+
+                <svg className={styles.svgAsteroid} width="278" height="264" viewBox="0 0 278 264" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path className={styles.pathAsteroid} id="pathAsteroid" d="M205.5 107C134 32.9996 68.5 3.5003 16 0.99963C-36.5 -1.50104 65 77.5003 101 167C137 256.499 264.5 269.499 274 260.499C283.5 251.499 277 181 205.5 107Z" />
                 </svg>
+
                 <Image
                     ref={asteroidRef}
                     className={styles.asteroid}
