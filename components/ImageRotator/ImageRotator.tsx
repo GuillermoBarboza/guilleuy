@@ -44,10 +44,20 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
   }
 
   const animate = useCallback(() => {
-    timeline.current = gsap.timeline()
+    timeline.current = gsap.timeline() 
     imagesRef.current.forEach((image, index) => {
+    // check if timeline is loaded
+    if (!timeline.current) return;
+    //check if image is loaded
+    if (!image) return;
       if (index === itemIndex) {
+        
+  
         const ctx = canvasRef.current?.getContext("2d");
+        //check if image is loaded
+        if (!ctx) return;
+        //check if image is loaded
+        if (!canvasRef.current) return;
         ctx.drawImage(image, 0, 0, image.width, image.height);
         console.log(image.width, image.height)
         timeline.current.to(image, {
@@ -102,6 +112,8 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
   useEffect(() => {
     timeline.current = gsap.timeline()
     imagesRef.current.forEach((image, index) => {
+      // check if timeline is loaded
+      if (!timeline.current) return;
       let opacity = index === imagesRef.current.length - 1 ?
         1
         : 0.1 * (index + 1);
@@ -123,6 +135,13 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
     const ctx = canvas?.getContext("2d");
     const image = imagesRef.current[imagesRef.current.length - 1];
     ctx?.scale(2, 1)
+    //check if image is loaded
+    if (!image) return;
+    //check if ctx is loaded
+    if (!ctx) return;
+    //check if canvas is loaded
+    if (!canvas) return;
+
     ctx.drawImage(image, 0, 0, image.width, image.height);
     gsap.set(canvas, {
       x: -25 * (imagesRef.current.length - 1),
@@ -143,7 +162,7 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
           <img id='red' ref={(ref) => (imagesRef.current[3] = ref)} className={css.image} src={fourth.src} alt='think later 4' />
         </div>
         <button className={css.trigger} onClick={() => { if (!timeline.current?.isActive()) { animate() } }}>TRI GG Errrrr</button>
-     
+
       </div>
 
     </div>
