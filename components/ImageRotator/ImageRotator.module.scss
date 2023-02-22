@@ -1,7 +1,8 @@
 .root {
   display: flex;
   flex-direction: row;
-  min-height: 750px;
+  justify-content: center;  
+  height: calc(100vh - 80px);
   background-color: rgb(246, 220, 220);
 }
 
@@ -12,6 +13,13 @@
 
 .trigger {
   transform: translate(100px, 0);
+  height: 100px;
+  border-radius: 50%;
+  width: 100px;
+  position: absolute;
+  right: 50%;
+  top: 70vh;
+  transform: translate(50%, -50%);
 }
 
 .images {
@@ -19,12 +27,12 @@
 }
 
 .image {
-  
   position: absolute;
   top: 0;
   left: 0;
-  height: 700px;
-  width: 500px;
+  max-height: 700px;
+  max-width: 500px;
+  height: 70vh;
   object-fit: cover;
   padding: 15px;
   background-color: rgb(148, 148, 255);
@@ -40,6 +48,10 @@
   position: absolute;
   top: 0;
   left: 0;
+  max-height: 700px;
+  max-width: 500px;
+  height: 70vh;
+  width: inherit;
   padding: 15px;
   background-color: rgb(148, 148, 255);
   border: 2px solid rgb(100, 83, 255);
@@ -47,7 +59,7 @@
 
 .imageContainer {
   transform: translate(50px, 50px);
-  opacity: 0;
+ /*  opacity: 0; */
 }
 
 .item {

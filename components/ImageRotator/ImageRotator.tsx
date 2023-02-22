@@ -48,8 +48,8 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
     imagesRef.current.forEach((image, index) => {
       if (index === itemIndex) {
         const ctx = canvasRef.current?.getContext("2d");
-        ctx.drawImage(image, 0, 0, canvasRef.current?.width, canvasRef.current?.height);
-
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        console.log(image.width, image.height)
         timeline.current.to(image, {
           duration: 1.333,
           x: 0,
@@ -64,11 +64,18 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
             zIndex: 1,
             opacity: 0.1
           })
-          .to(canvasRef.current, {
+          .fromTo(canvasRef.current, {
+            duration: 1.333,
+            x: -25 * (imagesRef.current.length - 1),
+            y: -25 * (imagesRef.current.length - 1),
+            zIndex: 0,
+            opacity: 0,
+            ease: "power4.out"
+          }, {
             duration: 1.333,
             x: -25 * (imagesRef.current.length - 2),
             y: -25 * (imagesRef.current.length - 2),
-            zIndex: 1,
+            zIndex: 0,
             opacity: 0.1,
             ease: "power4.out"
           }, 0)
@@ -116,11 +123,11 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
     const ctx = canvas?.getContext("2d");
     const image = imagesRef.current[imagesRef.current.length - 1];
     ctx?.scale(2, 1)
-    ctx.drawImage(image, 0, 0, canvasRef.current?.width, canvasRef.current?.height);
+    ctx.drawImage(image, 0, 0, image.width, image.height);
     gsap.set(canvas, {
       x: -25 * (imagesRef.current.length - 1),
       y: -25 * (imagesRef.current.length - 1),
-      zIndex: -(imagesRef.current.length + 1),
+      zIndex: 0,
       opacity: 0
     })
   }, [imagesRef, canvasRef])
@@ -128,43 +135,15 @@ const ImageRotator: FC<ImageRotatorProps> = ({ className, autoplay, children }) 
   return (
     <div className={classNames('ImageRotator', css.root, className)}>
       <div className={css.images}>
-        <canvas height={700} width={500} className={css.canvas} id="canvas" ref={(ref) => (canvasRef.current = ref)}></canvas>
+        <canvas className={css.canvas} id="canvas" ref={(ref) => (canvasRef.current = ref)}></canvas>
         <div className={css.imageContainer}>
           <img id='monke' ref={(ref) => (imagesRef.current[0] = ref)} className={css.image} src={cat.src} alt='think later 1' />
           <img id='bee' ref={(ref) => (imagesRef.current[1] = ref)} className={css.image} src={bee.src} alt='think later 2' />
           <img id='cat' ref={(ref) => (imagesRef.current[2] = ref)} className={css.image} src={monkey.src} alt='think later 3' />
           <img id='red' ref={(ref) => (imagesRef.current[3] = ref)} className={css.image} src={fourth.src} alt='think later 4' />
         </div>
-
-      </div>
-
-      <div className={css.items}>
-        <div ref={(ref) => (itemsRef.current[0] = ref)} className={css.item}>
-          <h4 className={css.title}>Titulo 1</h4>
-          <div className={css.content}>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto, ex praesentium nostrum sapiente, rem consequuntur aspernatur temporibus minima, esse exercitationem et? Similique consequatur mollitia quaerat rerum eum accusantium molestias dignissimos!</p>
-            <button>Check out more</button>
-          </div>
-        </div>
-
-        <div ref={(ref) => (itemsRef.current[1] = ref)} className={css.item}>
-          <h4 className={css.title}>Titulo 2</h4>
-          <div className={css.content}>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto, ex praesentium nostrum sapiente, rem consequuntur aspernatur temporibus minima, esse exercitationem et? Similique consequatur mollitia quaerat rerum eum accusantium molestias dignissimos!</p>
-            <button>Check out more</button>
-          </div>
-
-        </div>
-
-        <div ref={(ref) => (itemsRef.current[2] = ref)} className={css.item}>
-          <h4 className={css.title}>Titulo 3</h4>
-          <div className={css.content}>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto, ex praesentium nostrum sapiente, rem consequuntur aspernatur temporibus minima, esse exercitationem et? Similique consequatur mollitia quaerat rerum eum accusantium molestias dignissimos!</p>
-            <button>Check out more</button>
-          </div>
-        </div>
-        <button className={css.trigger} onClick={() => console.log("current image is:", timeline.current?.isActive())}>TCheck</button>
         <button className={css.trigger} onClick={() => { if (!timeline.current?.isActive()) { animate() } }}>TRI GG Errrrr</button>
+     
       </div>
 
     </div>
