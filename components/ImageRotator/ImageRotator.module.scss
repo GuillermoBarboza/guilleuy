@@ -1,0 +1,59 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  min-height: 750px;
+  background-color: rgb(246, 220, 220);
+}
+
+.images,
+.items {
+  width: 50vw;
+}
+
+.trigger {
+  transform: translate(100px, 0);
+}
+
+.images {
+  position: relative;
+}
+
+.image {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 700px;
+  width: 500px;
+  object-fit: cover;
+  padding: 15px;
+  background-color: rgb(148, 148, 255);
+  border: 2px solid rgb(100, 83, 255);
+}
+
+/* .image[id='red'] {
+  background-color: rgb(125, 30, 30);
+  border: 17px solid rgb(100, 83, 255);
+} */
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  background-color: rgb(148, 148, 255);
+  border: 2px solid rgb(100, 83, 255);
+}
+
+.imageContainer {
+  transform: translate(50px, 50px);
+  opacity: 0;
+}
+
+.item {
+  margin-bottom: 35px;
+  button {
+    padding: 5px 0;
+    margin: 5px 0;
+  }
+}
