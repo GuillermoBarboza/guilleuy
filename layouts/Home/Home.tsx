@@ -2,15 +2,14 @@ import React, { useRef, useEffect } from 'react'
 import styles from './Home.module.css'
 import gsap from 'gsap';
 
-import Space from '../Space/Space'
-import Vfx from '../../components/Vfx/Vfx';
-
+import ImageRotator from '../../components/ImageRotator/ImageRotator';
+import css from 'styled-jsx/css';
 export default function Home() {
-  /*   let galaxyBkg = useRef(null);
-    let asteroidRef: React.RefObject<HTMLDivElement> | undefined = useRef(null);
-    const button: React.RefObject<HTMLButtonElement> = useRef(null);
-    const root = useRef(null);
-    const timelineRef = useRef<gsap.core.Timeline | null>(null); */
+    /*   let galaxyBkg = useRef(null);
+      let asteroidRef: React.RefObject<HTMLDivElement> | undefined = useRef(null);
+      const button: React.RefObject<HTMLButtonElement> = useRef(null);
+      const root = useRef(null);
+      const timelineRef = useRef<gsap.core.Timeline | null>(null); */
 
 
     // pa usar despues
@@ -21,22 +20,23 @@ export default function Home() {
     }
 
     useEffect(() => {
- /*        timelineRef.current = gsap
-            .timeline({ paused: true })
-            .to(root.current, {
-                rotation: "+=360",
-                duration: 3
-            })
-
-        return () => {
-            timelineRef.current?.kill();
-        }; */
+        /*        timelineRef.current = gsap
+                   .timeline({ paused: true })
+                   .to(root.current, {
+                       rotation: "+=360",
+                       duration: 3
+                   })
+       
+               return () => {
+                   timelineRef.current?.kill();
+               }; */
     }, [])
 
 
     return (
         <>
-            <Space/>
+            <div className={styles.home}><ImageRotator /></div>
+
         </>
     )
 
