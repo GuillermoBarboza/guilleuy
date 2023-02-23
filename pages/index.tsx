@@ -56,7 +56,6 @@ export default function Page() {
                     `
         }}
       />
-      <Nav />
       <main>
         <Home />
       </main>
