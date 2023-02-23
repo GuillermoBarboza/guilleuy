@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useXR, XR, ARButton, XRButton } from '@react-three/xr';
+import React, { useEffect, useRef } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useXR, XR, ARButton, XRButton, XREvent, XRManagerEvent } from '@react-three/xr';
 import { Mesh } from 'three';
 
 
@@ -28,6 +28,19 @@ function Square(): JSX.Element {
 
 export default function Webxr() {
 
+    const { gl } = useThree();
+    // set renderer.domElement.style.display = 'none' when the session starts and back to default when it ends renderer.domElement.style.display = ''
+
+    useEffect(() => {
+        const { domElement } = gl;
+        const onSessionStart = () => {
+            domElement.style.display = 'none';
+        };
+        const onSessionEnd = () => {
+            domElement.style.display = 'block';
+        };
+
+    }, [gl]);
 
     return (
         <>
@@ -41,7 +54,10 @@ export default function Webxr() {
                      */
                     foveation={0}
                     /** Type of WebXR reference space to use. Default is `local-floor` */
-                    referenceSpace="local-floor"
+                    referenceSpace="local"
+                    onSessionStart={(event: XREvent<XRManagerEvent>) => { gl.domElement.style.display = 'none'; }}
+                    /** Called after an XRSession is terminated */
+                    onSessionEnd={(event: XREvent<XRManagerEvent>) => { gl.domElement.style.display = 'block'; }}
                 >
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />
