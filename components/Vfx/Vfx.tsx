@@ -122,7 +122,7 @@ export default function Vfx() {
         <div className={styles.wrapper}>
             <canvas ref={canvasRef} className={styles.canvas}></canvas>
             <video ref={videoRef} className={styles.video}></video>
-            <a href="/" className={styles.link}>Back to Space</a>
+           
         </div>
     )
 }

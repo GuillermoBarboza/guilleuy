@@ -1,6 +1,6 @@
 .canvas {
-  border: 4px solid blue;
   height: 50vh;
+  width: 400px;
   margin: auto;
 }
 .video {
