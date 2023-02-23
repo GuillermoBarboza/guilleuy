@@ -29,8 +29,10 @@ export default function Asteroid() {
 
     useEffect(() => {
         /*  requestFrame.current = requestAnimationFrame(animate) */
+        // create timeline and store it on the ref
+        timelineRef.current = gsap.timeline();
         console.log(window.innerWidth / 40,window.innerWidth*2) 
-        gsap.to(asteroidRef.current, {
+        timelineRef.current.to(asteroidRef.current, {
             motionPath: {
                 path: "#pathAsteroid",
                 align: "#pathAsteroid",
@@ -47,8 +49,8 @@ export default function Asteroid() {
 
         if (asteroidRef.current != null && alertRef.current != null) {
             asteroidRef.current.addEventListener('click', () => {
-                if (alertRef.current != null) {
-                    gsap.to(document.querySelector('h1'), {
+                if (alertRef.current != null && timelineRef.current != null) {
+                    timelineRef.current.to(document.querySelector('h1'), {
                         translateY: alertRef.current.classList.contains(styles.hidden) ? -100 : 0,
                         duration: 1.2,
                     })
@@ -62,7 +64,7 @@ export default function Asteroid() {
 
         return () => {
             /*  cancelAnimationFrame(requestFrame) */
-            /*  timeline.current?.kill(); */
+            timelineRef.current?.kill();
         }
 
     }, [asteroidRef, alertRef])
