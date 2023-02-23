@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Script from 'next/script';
 import React, { useRef, useEffect } from 'react'
 import Vfx from '../../components/Vfx/Vfx'
+import Webxr from '../../components/Webxr/Webxr'
 import { useState } from 'react'
 
 const PAGES = {home: 'HOME', space: 'SPACE'}
@@ -51,7 +52,8 @@ export default function Page() {
       />
     
       <main>
-        <Vfx />
+        <Webxr />
+
       </main>
       <footer>
 
