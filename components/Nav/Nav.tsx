@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import gsap from 'gsap';
 
+
 export default function Nav() {
     const navRef: React.RefObject<HTMLElement> = useRef(null);
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
@@ -30,11 +31,8 @@ export default function Nav() {
         timelineRef.current?.reverse();
     }
 
-
-
-
-
     useEffect(() => {
+
         timelineRef.current = gsap.timeline({
             paused: true,
             defaults: {
@@ -64,23 +62,30 @@ export default function Nav() {
             </button>
             <nav className={styles.nav} ref={navRef} >
                 <ul className={styles.list} ref={listRef} >
-                    <li>
-                        <a href='/space' onClick={(e) => handleClick(e)} className={styles.link}>
-                            to the m00n...
-                        </a>
-                    </li>
-                    <li>
+                    <li className={styles.listItem} >
                         <a href='/' onClick={(e) => handleClick(e)} className={styles.link}>
-                            I wanna go home
+                        🏠 I wanna go home
                         </a>
                     </li>
-                   {/*  <li>
-                        <a href='/develop' onClick={handleClick} className={styles.link}>
-                            Show me a peek even if its broken
+                    <li className={styles.listItem}>
+                        <a href='/space' onClick={(e) => handleClick(e)} className={styles.link}>
+                            to the m00n... 🌌 🚀
                         </a>
-                    </li> */}
+                    </li>
+
+                    <li className={styles.listItem}>
+                        <a href='/develop' onClick={handleClick} className={styles.link}>
+                        🔭 Show me a peek even if its not finished
+                        </a>
+                    </li>
+                    <li className={styles.listItem}>
+                        <a href='/vfx' onClick={handleClick} className={styles.link}>
+                           Go to inverse color camera visual effect 🤳 🤳
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </>
     )
 }
+

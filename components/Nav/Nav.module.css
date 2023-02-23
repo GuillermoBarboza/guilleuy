@@ -25,6 +25,14 @@
     visibility: hidden;
 }
 
+.listItem {
+    /* list item is a list item */
+    margin: 20px;
+    text-decoration: underline;
+    text-underline-position: under;
+    width: 200px;
+}
+
 .button {
     /* button is a hamburger menu */
     position: absolute;
@@ -44,3 +52,25 @@
     z-index: 10;
 
 }
+
+.link {
+    /* link is a link */
+    text-decoration: none;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 20px;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Roboto', serif;
+}
+
+/*  list all font family names */
+/*  font-family: 'Montserrat', sans-serif; */
+/*  font-family: 'Roboto', sans-serif; */
+/*  font-family: 'Open Sans', sans-serif; */
+/*  font-family: 'Lato', sans-serif; */
+/*  font-family: 'Raleway', sans-serif; */
+/*  font-family: 'Oswald', sans-serif; */
+/*  font-family: 'Lora', serif; */
+/*  font-family: 'Merriweather', serif; */
+/*  font-family: 'Playfair Display', serif; */
