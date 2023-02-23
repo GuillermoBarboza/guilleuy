@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useXR, XR, ARButton } from '@react-three/xr';
+import { useXR, XR, ARButton, XRButton } from '@react-three/xr';
 import { Mesh } from 'three';
 
 
@@ -33,9 +33,6 @@ export default function Webxr() {
         <>
             <ARButton />
             <Canvas >
-
-                <ambientLight />
-                <pointLight position={[10, 10, 10]} />
                 <XR
                     /**
                      * Enables foveated rendering. Default is `0`
@@ -46,6 +43,9 @@ export default function Webxr() {
                     /** Type of WebXR reference space to use. Default is `local-floor` */
                     referenceSpace="local-floor"
                 >
+                    <ambientLight />
+                    <pointLight position={[10, 10, 10]} />
+
                     <Square />
                 </XR>
             </Canvas>
