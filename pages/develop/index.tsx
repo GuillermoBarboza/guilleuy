@@ -1,14 +1,14 @@
-import Head from 'next/head'
-import Script from 'next/script';
-import React, { useRef, useEffect } from 'react'
-import Vfx from '../../components/Vfx/Vfx'
-import Webxr from '../../components/Webxr/Webxr'
-import { useState } from 'react'
+import Head from "next/head";
+import Script from "next/script";
+import React, { useRef, useEffect } from "react";
+import Vfx from "../../components/Vfx/Vfx";
+import Webxr from "../../components/Webxr/Webxr";
+import Cube from "../../components/Cube/Cube";
+import { useState } from "react";
 
-const PAGES = {home: 'HOME', space: 'SPACE'}
+const PAGES = { home: "HOME", space: "SPACE" };
 
 export default function Page() {
-
   return (
     <>
       <Head>
@@ -26,7 +26,10 @@ export default function Page() {
           }}
         /> */}
         <title>L.P.D.G. VFX</title>
-        <meta name="description" content="This is my personal website, I intend to use this space to explore my creativity and see if I can do something fun for the sake of. Enjoy!" />
+        <meta
+          name="description"
+          content="This is my personal website, I intend to use this space to explore my creativity and see if I can do something fun for the sake of. Enjoy!"
+        />
 
         <meta property="og:title" content="La página del Guille" />
         <meta
@@ -35,7 +38,6 @@ export default function Page() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-
       </Head>
       <Script
         id="google-tag-manager"
@@ -47,18 +49,15 @@ export default function Page() {
                     gtag('js', new Date());
                   
                     gtag('config', '${process.env.NEXT_PUBLIC_GTA_ID}');
-                    `
+                    `,
         }}
       />
-    
+
       <main>
-        <Webxr />
-
+        {/*  <Webxr /> */}
+        <Cube />
       </main>
-      <footer>
-
-      </footer>
+      <footer></footer>
     </>
-  )
-
+  );
 }
