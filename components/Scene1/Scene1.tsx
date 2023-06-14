@@ -25,7 +25,7 @@ export default function Webxr() {
         >
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
-          <Pigeon />
+          {/* <Pigeon /> */}
         </XR>
       </Canvas>
     </>

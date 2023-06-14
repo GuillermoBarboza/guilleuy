@@ -36,7 +36,7 @@ export default function Page() {
           setSelectedOption={setSelectedOption}
         />
         {selectedOption === "option1" && <Cube />}
-        {/*     {selectedOption === "option2" && <Scene1 />} */}
+        {selectedOption === "option2" && <Scene1 />}
       </main>
       <footer></footer>
     </>
