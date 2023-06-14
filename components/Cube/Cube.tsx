@@ -59,7 +59,7 @@ export default function Webxr() {
           onSessionEnd={(event: XREvent<XRManagerEvent>) => {}}
         >
           <ambientLight />
-          <pointLight position={[10, 10, 10]} />
+          <pointLight position={[1, 1, 1]} />
 
           <Cube />
         </XR>
