@@ -1,29 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   useXREvent,
   XR,
   ARButton,
-  XRButton,
   XREvent,
   XRManagerEvent,
 } from "@react-three/xr";
+import GUI from "lil-gui";
 import { Mesh } from "three";
 
 function Cube(): JSX.Element {
   const meshRef = useRef<Mesh>(null);
+  const [position, setPosition] = useState({ x: 1, y: 1, z: -1 });
 
   const { gl } = useThree();
 
-  // set renderer.domElement.style.display = 'none' when the session starts and back to default when it ends renderer.domElement.style.display = ''
-
-  // Add an event listener to handle the XRSessionStarted event
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
     console.log("XR session started!");
   });
 
-  // Add an event listener to handle the XRSessionEnded event
   useXREvent("disconnected", () => {
     gl.domElement.style.display = "block";
     console.log("XR session ended!");
@@ -39,8 +36,27 @@ function Cube(): JSX.Element {
     }
   });
 
+  useEffect(() => {
+    import("lil-gui").then(({ default: GUI }) => {
+      const gui = new GUI();
+      gui.add(position, "x", -200, 200);
+      gui.add(position, "y", -200, 200);
+      gui.add(position, "z", -200, 200);
+
+      gui.onChange(() => {
+        setPosition(position);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.position.set(position.x, position.y, position.z);
+    }
+  }, [position]);
+
   return (
-    <mesh ref={meshRef} position={[0, 0, -1]}>
+    <mesh ref={meshRef}>
       <boxBufferGeometry />
       <meshStandardMaterial color="hotpink" />
     </mesh>
@@ -59,7 +75,7 @@ export default function Webxr() {
           onSessionEnd={(event: XREvent<XRManagerEvent>) => {}}
         >
           <ambientLight />
-          <pointLight position={[10, 10, 10]} />
+          <pointLight position={[1, 1, 1]} />
 
           <Cube />
         </XR>
