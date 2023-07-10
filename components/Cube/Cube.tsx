@@ -76,6 +76,7 @@ function FBXModel(): JSX.Element {
   useEffect(() => {
     if (fbxRef.current) {
       fbxRef.current.add(fbx);
+      console.log(fbx.animations[0]);
     }
   }, [fbx]);
 
