@@ -14,7 +14,7 @@ import {
   XRManagerEvent,
 } from "@react-three/xr";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { Mesh, Group } from "three";
+import { Mesh, Group, Vector3 } from "three";
 
 function Cube(): JSX.Element {
   const meshRef = useRef<Mesh>(null);
@@ -79,7 +79,7 @@ function FBXModel(): JSX.Element {
     }
   }, [fbx]);
 
-  return <group ref={fbxRef} />;
+  return <group position={new Vector3(0, 0, 0)} ref={fbxRef} />;
 }
 
 export default function Webxr() {
