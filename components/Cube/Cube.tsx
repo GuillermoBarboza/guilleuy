@@ -80,7 +80,7 @@ function FBXModel(): JSX.Element {
     }
   }, [fbx]);
 
-  return <group position={new Vector3(0, 0, 0)} ref={fbxRef} />;
+  return <group position={new Vector3(0, -1, 0)} ref={fbxRef} />;
 }
 
 export default function Webxr() {
