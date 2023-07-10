@@ -70,9 +70,9 @@ function Cube(): JSX.Element {
 }
 
 function FBXModel(): JSX.Element {
-  const fbxRef = useRef<Group>(null);
+  const fbxRef = useRef<Mesh>(null);
   const fbx = useLoader(FBXLoader, "/assets/gohan.fbx");
-  const [position, setPosition] = useState({ x: 1, y: 1, z: -1 });
+  const [position, setPosition] = useState({ x: 1, y: -1, z: -1 });
 
   useEffect(() => {
     if (fbxRef.current) {
@@ -101,7 +101,7 @@ function FBXModel(): JSX.Element {
   }, [position]);
 
   return (
-    <group
+    <mesh
       position={new Vector3(position.x, position.y, position.z)}
       ref={fbxRef}
     />
