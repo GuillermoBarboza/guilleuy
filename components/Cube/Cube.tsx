@@ -45,9 +45,9 @@ function Cube(): JSX.Element {
   useEffect(() => {
     import("lil-gui").then(({ default: GUI }) => {
       const gui = new GUI();
-      gui.add(position, "x", -200, 200);
-      gui.add(position, "y", -200, 200);
-      gui.add(position, "z", -200, 200);
+      gui.add(position, "x", -10, 10);
+      gui.add(position, "y", -10, 10);
+      gui.add(position, "z", -10, 10);
 
       gui.onChange(() => {
         setPosition(position);
@@ -72,6 +72,7 @@ function Cube(): JSX.Element {
 function FBXModel(): JSX.Element {
   const fbxRef = useRef<Group>(null);
   const fbx = useLoader(FBXLoader, "/assets/gohan.fbx");
+  const [position, setPosition] = useState({ x: 1, y: 1, z: -1 });
 
   useEffect(() => {
     if (fbxRef.current) {
@@ -80,7 +81,31 @@ function FBXModel(): JSX.Element {
     }
   }, [fbx]);
 
-  return <group position={new Vector3(0, -1, 0)} ref={fbxRef} />;
+  useEffect(() => {
+    import("lil-gui").then(({ default: GUI }) => {
+      const gui = new GUI();
+      gui.add(position, "x", -10, 10);
+      gui.add(position, "y", -10, 10);
+      gui.add(position, "z", -10, 10);
+
+      gui.onChange(() => {
+        setPosition(position);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (fbxRef.current) {
+      fbxRef.current.position.set(position.x, position.y, position.z);
+    }
+  }, [position]);
+
+  return (
+    <group
+      position={new Vector3(position.x, position.y, position.z)}
+      ref={fbxRef}
+    />
+  );
 }
 
 export default function Webxr() {
@@ -97,7 +122,7 @@ export default function Webxr() {
           <ambientLight />
           <pointLight position={[1, 1, 1]} />
 
-          <Cube />
+          {/* <Cube /> */}
           <FBXModel />
         </XR>
       </Canvas>
