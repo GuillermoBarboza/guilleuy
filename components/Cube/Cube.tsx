@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import {
+  Canvas,
+  useFrame,
+  useThree,
+  useLoader,
+  GroupProps,
+} from "@react-three/fiber";
 import {
   useXREvent,
   XR,
@@ -7,8 +13,8 @@ import {
   XREvent,
   XRManagerEvent,
 } from "@react-three/xr";
-import GUI from "lil-gui";
-import { Mesh } from "three";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { Mesh, Group } from "three";
 
 function Cube(): JSX.Element {
   const meshRef = useRef<Mesh>(null);
@@ -63,6 +69,19 @@ function Cube(): JSX.Element {
   );
 }
 
+function FBXModel(): JSX.Element {
+  const fbxRef = useRef<Group>(null);
+  const fbx = useLoader(FBXLoader, "/assets/gohan.fbx");
+
+  useEffect(() => {
+    if (fbxRef.current) {
+      fbxRef.current.add(fbx);
+    }
+  }, [fbx]);
+
+  return <group ref={fbxRef} />;
+}
+
 export default function Webxr() {
   return (
     <>
@@ -78,6 +97,7 @@ export default function Webxr() {
           <pointLight position={[1, 1, 1]} />
 
           <Cube />
+          <FBXModel />
         </XR>
       </Canvas>
     </>
