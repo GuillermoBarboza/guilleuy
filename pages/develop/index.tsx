@@ -1,12 +1,17 @@
 import Head from "next/head";
 import Script from "next/script";
 import React, { useRef, useEffect } from "react";
+import { Canvas } from "@react-three/fiber";
+import { XR, ARButton, XREvent, XRManagerEvent } from "@react-three/xr";
 import Vfx from "../../components/Vfx/Vfx";
 import Webxr from "../../components/Webxr/Webxr";
 import Scene1 from "../../components/Scene1/Scene1";
 import Cube from "../../components/Cube/Cube";
+import Gohan from "../../components/Gohan/model";
 import RadioForm from "../../components/Form/RadioForm";
 import { useState } from "react";
+import { Vector3 } from "three";
+import Pigeon from "../../components/Pigeon/Pigeon";
 
 const PAGES = { home: "HOME", space: "SPACE" };
 
@@ -35,8 +40,24 @@ export default function Page() {
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
         />
-        {selectedOption === "option1" && <Cube />}
-        {selectedOption === "option2" && <Scene1 />}
+        <ARButton />
+        <Canvas>
+          <XR
+            foveation={0}
+            referenceSpace="local"
+            onSessionStart={(event: XREvent<XRManagerEvent>) => {}}
+            onSessionEnd={(event: XREvent<XRManagerEvent>) => {}}
+          >
+            <ambientLight />
+            <pointLight position={[1, 1, 1]} />
+
+            {selectedOption === "option1" && <Cube />}
+            {selectedOption === "option2" && (
+              <Gohan position={new Vector3(1, -1, 1)} />
+            )}
+            {selectedOption === "option3" && <Pigeon />}
+          </XR>
+        </Canvas>
       </main>
       <footer></footer>
     </>
