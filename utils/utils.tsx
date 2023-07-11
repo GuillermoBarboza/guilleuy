@@ -1,5 +1,6 @@
 import GUI from "lil-gui";
-
+import { useEffect } from "react";
+import { Vector3 } from "three";
 const gui = new GUI();
 
 export default gui;
