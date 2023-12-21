@@ -7,10 +7,12 @@ export function ApiStack({ stack }: StackContext) {
   // Create the API
   const api = new Api(stack, "Api", {
     defaults: {
+      authorizer: "iam",
       function: {
         bind: [table],
       },
     },
+    cors: true,
     routes: {
       "POST /notes": "packages/functions/src/create.main",
       "GET /notes/{id}": "packages/functions/src/get.main",
