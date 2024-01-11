@@ -3,6 +3,7 @@ const config = {
     s3: {
       REGION: import.meta.env.VITE_REGION,
       BUCKET: import.meta.env.VITE_BUCKET,
+      MAX_ATTACHMENT_SIZE: 16000000,
     },
     apiGateway: {
       REGION: import.meta.env.VITE_REGION,

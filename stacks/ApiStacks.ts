@@ -1,11 +1,14 @@
 import { Api, StackContext, use } from "sst/constructs";
 import { StorageStack } from "./StorageStacks";
+import { AuthStack } from "./AuthStack";
 
-export function ApiStack({ stack }: StackContext) {
+export function ApiStack({ stack, app }: StackContext) {
   const { table } = use(StorageStack);
+  const { auth } = use(AuthStack); // Use the AuthStack
 
   // Create the API
   const api = new Api(stack, "Api", {
+    customDomain: app.stage === "prod" ? `api.${app.stage}.guille.uy` : undefined,
     defaults: {
       authorizer: "iam",
       function: {
@@ -24,7 +27,7 @@ export function ApiStack({ stack }: StackContext) {
 
   // Show the API endpoint in the output
   stack.addOutputs({
-    ApiEndpoint: api.url,
+    ApiEndpoint: api.customDomainUrl || api.url,
   });
 
   // Return the API resource
