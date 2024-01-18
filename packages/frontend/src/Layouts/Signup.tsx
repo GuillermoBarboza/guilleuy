@@ -66,10 +66,12 @@ export default function Signup() {
     setIsLoading(true);
     try {
       await Auth.confirmSignUp(fields.email, fields.confirmationCode);
+      console.log("till here ok")
       await Auth.signIn(fields.email, fields.password);
       userHasAuthenticated(true);
       nav("/");
     } catch (e) {
+      console.log("error on signup catchhh", e)
       onError(e);
       setIsLoading(false);
     }

@@ -5,6 +5,7 @@ import NotFound from "./Layouts/NotFound.tsx";
 import Signup from "./Layouts/Signup.tsx";
 import Create from "./Layouts/Create.tsx";
 import Notes from "./Layouts/Notes.tsx";
+import Profile from "./Layouts/Profile.tsx"
 import AuthenticatedRoute from "./Components/AuthenticatedRoute.tsx";
 import UnauthenticatedRoute from "./Components/UnauthenticatedRoute.tsx";
 
@@ -12,6 +13,15 @@ export default function Links() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+
+      <Route
+        path="/profile"
+        element={
+          <AuthenticatedRoute>
+            <Profile />
+          </AuthenticatedRoute>
+        }
+      />
 
       <Route
         path="/notes/new"

@@ -5,11 +5,18 @@ import { Cognito, StackContext, use } from "sst/constructs";
 
 export function AuthStack({ stack, app }: StackContext) {
   const { api } = use(ApiStack);
-  const { bucket } = use(StorageStack);
+  const { bucket, profileTable } = use(StorageStack);
 
   // Create a Cognito User Pool and Identity Pool
   const auth = new Cognito(stack, "Auth", {
     login: ["email"],
+    triggers: {
+      postConfirmation: {
+        handler: "packages/functions/src/profile/confirmation.main",
+        environment: { tableName: profileTable.tableName },
+        permissions: [profileTable],
+      },
+    },
   });
 
   auth.attachPermissionsForAuthUsers(stack, [

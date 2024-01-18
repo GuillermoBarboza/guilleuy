@@ -37,7 +37,6 @@ export default function Home() {
   }
   
   function renderNotesList(notes: { [key: string]: any }) {
-    console.log('notes', notes)
     return (
       <>
       <a href="/notes/new" >
