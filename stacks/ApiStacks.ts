@@ -14,6 +14,10 @@ export function ApiStack({ stack, app }: StackContext) {
     },
     cors: true,
     routes: {
+      "GET /session": {
+        function: "packages/functions/src/auth/session.handler",
+        authorizer: "none",
+      },
       //notes
       "POST /notes": "packages/functions/src/notes/create.main",
       "GET /notes/{id}": "packages/functions/src/notes/get.main",
@@ -22,7 +26,8 @@ export function ApiStack({ stack, app }: StackContext) {
       "DELETE /notes/{id}": "packages/functions/src/notes/delete.main",
 
       //profil
-      "POST /create-profile": "packages/functions/src/profile/confirmation.main",
+      "POST /create-profile":
+        "packages/functions/src/profile/confirmation.main",
       "GET /profile/{sub}": "packages/functions/src/profile/get.main",
       "GET /profiles": "packages/functions/src/profile/list.main",
       "PUT /profile": "packages/functions/src/profile/update.main",

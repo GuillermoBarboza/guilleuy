@@ -17,7 +17,6 @@ export const main = ( async (event: any) => {
     TableName: process.env.tableName,
     Item: {
       userId: userId,
-      profileId: uuid.v1(),
       username: data.username,
       email: data.email,
       profilePictureUrl: data.profilePictureUrl,
