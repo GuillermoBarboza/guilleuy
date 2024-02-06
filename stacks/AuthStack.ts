@@ -1,23 +1,11 @@
 import { ApiStack } from "./ApiStacks";
 import * as iam from "aws-cdk-lib/aws-iam";
 import { StorageStack } from "./StorageStacks";
-import { Auth, Cognito, StackContext, use } from "sst/constructs";
+import { Cognito, StackContext, use } from "sst/constructs";
 
 export function AuthStack({ stack, app }: StackContext) {
   const { api } = use(ApiStack);
-  const { bucket, profileTable, notesTable } = use(StorageStack);
-
-  const customAuth = new Auth(stack, "CustomAuth", {
-    authenticator: {
-      handler: "packages/functions/src/auth/custom.handler",
-      environment: {
-        siteUrl: app.stage === "prod" ? "guille.uy" : "http://localhost:5173",
-      },
-      permissions: [profileTable, api, notesTable],
-    },
-  });
-
-  customAuth.attach(stack, { api });
+  const { bucket, profileTable } = use(StorageStack);
 
   // Create a Cognito User Pool and Identity Pool
   const auth = new Cognito(stack, "CognitoAuth", {
@@ -55,6 +43,5 @@ export function AuthStack({ stack, app }: StackContext) {
   // Return the auth resource
   return {
     auth,
-    customAuth,
   };
 }

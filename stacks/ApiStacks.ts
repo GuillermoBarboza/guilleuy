@@ -2,21 +2,32 @@ import { Api, StackContext, use } from "sst/constructs";
 import { StorageStack } from "./StorageStacks";
 
 export function ApiStack({ stack, app }: StackContext) {
-  const { notesTable, profileTable } = use(StorageStack);
+  const {
+    profileTable,
+    productsTable,
+    categoriesTable,
+    ordersTable,
+    artworksTable,
+  } = use(StorageStack);
 
   // Create the API
   const api = new Api(stack, "Api", {
     defaults: {
       authorizer: "iam",
       function: {
-        bind: [notesTable, profileTable],
+        bind: [
+          profileTable,
+          productsTable,
+          categoriesTable,
+          ordersTable,
+          artworksTable,
+        ],
       },
     },
     cors: true,
     routes: {
-      "GET /session": {
-        function: "packages/functions/src/auth/session.handler",
-        authorizer: "none",
+      "GET /works": {
+        function: "packages/functions/src/works/get.handler",
       },
       //notes
       "POST /notes": "packages/functions/src/notes/create.main",
@@ -25,7 +36,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "PUT /notes/{id}": "packages/functions/src/notes/update.main",
       "DELETE /notes/{id}": "packages/functions/src/notes/delete.main",
 
-      //profil
+      //profile
       "POST /create-profile":
         "packages/functions/src/profile/confirmation.main",
       "GET /profile/{sub}": "packages/functions/src/profile/get.main",
