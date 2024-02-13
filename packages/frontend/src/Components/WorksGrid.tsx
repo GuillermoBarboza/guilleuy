@@ -1,5 +1,5 @@
 export default function WorksGrid() {
-  const productRow = (product) => {
+  /*  const productRow = (product) => {
     return (
       <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
         <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
@@ -25,7 +25,7 @@ export default function WorksGrid() {
         </td>
       </tr>
     );
-  };
+  }; */
 
   return (
     <div className="NotFound text-center">

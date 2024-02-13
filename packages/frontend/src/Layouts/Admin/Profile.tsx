@@ -1,14 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { API, Storage, Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { onError } from "../../lib/errorLib";
-import config from "../../config";
 import LoaderButton from "../../Components/LoaderButton";
-import { s3Upload, s3Delete } from "../lib/awsLib";
+import { s3Upload } from "../../lib/awsLib";
 
 export default function AdminProfile() {
   // Ref for the file input
   const file = useRef<null | File>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // User profile state
   const [profile, setProfile] = useState({

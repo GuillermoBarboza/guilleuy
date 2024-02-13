@@ -10,6 +10,7 @@ export const main = handler(async (event) => {
       throw new Error("User ID not found.");
     }
     const params = {
+      //@ts-ignore
       TableName: Table.UserProfiles.tableName,
       // 'Key' defines the partition key and sort key of
       // the item to be retrieved

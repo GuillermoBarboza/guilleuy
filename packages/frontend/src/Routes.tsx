@@ -18,6 +18,8 @@ import AdminBlog from "./Layouts/Admin/Blog.tsx";
 import AdminTienda from "./Layouts/Admin/Tienda.tsx";
 import AdminPortfolio from "./Layouts/Admin/Portfolio.tsx";
 import AdminContacto from "./Layouts/Admin/Contacto.tsx";
+import Producto from "./Layouts/Producto.tsx";
+import AdminProducto from "./Layouts/Admin/Producto.tsx";
 
 export default function Links() {
   return (
@@ -35,6 +37,7 @@ export default function Links() {
       <Route path="/about" element={<About />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/tienda" element={<Tienda />} />
+      <Route path="/tienda/:productSlug" element={<Producto />} />
       <Route path="/contacto" element={<Contacto />} />
       <Route
         path="/admin/portfolio"
@@ -49,6 +52,14 @@ export default function Links() {
         element={
           <AuthenticatedRoute>
             <AdminTienda />
+          </AuthenticatedRoute>
+        }
+      />
+      <Route
+        path="/admin/tienda/:productSlug"
+        element={
+          <AuthenticatedRoute>
+            <AdminProducto />
           </AuthenticatedRoute>
         }
       />

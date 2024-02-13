@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{html,js,jsx,ts,tsx,css}"],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        80: "80vw",
+      },
+    },
   },
   plugins: [],
 };

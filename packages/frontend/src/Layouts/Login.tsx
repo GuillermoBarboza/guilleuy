@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../lib/contextLib";
-import LoaderButton from '../Components/LoaderButton'
+import LoaderButton from "../Components/LoaderButton";
 import { onError } from "../lib/errorLib";
 import { useFormFields } from "../lib/hookLib";
 
@@ -32,14 +32,6 @@ export default function Login() {
   return (
     <div>
       <div>
-        <div>
-          <a
-            href={`${import.meta.env.VITE_API_URL}/auth/google/authorize`}
-            rel="noreferrer"
-          >
-            <button>Sign in with Google</button>
-          </a>
-        </div>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email</label>
@@ -60,12 +52,15 @@ export default function Login() {
               onChange={handleFieldChange}
             />
           </div>
-          <LoaderButton type="submit" isLoading={isLoading} disabled={!validateForm()}>
+          <LoaderButton
+            type="submit"
+            isLoading={isLoading}
+            disabled={!validateForm()}
+          >
             Login
           </LoaderButton>
         </form>
       </div>
-
     </div>
   );
 }

@@ -6,6 +6,7 @@ export const main = handler(async (event) => {
   const data = JSON.parse(event.body || "{}");
 
   const params = {
+    //@ts-ignore
     TableName: Table.UserProfiles.tableName,
     Key: {
       // The attributes of the item to be created

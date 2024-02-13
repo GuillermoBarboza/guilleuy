@@ -5,8 +5,15 @@ import dynamoDb from "@notes/core/dynamodb";
 
 export const main = handler(async (event) => {
   let data = {
-    content: "",
-    attachment: "",
+    title: "",
+    subtitle: "",
+    description: "",
+    fecha: "",
+    client: "",
+    category: "",
+    imagenPrincipal: '',
+    imagenesAdicionales: [''],
+    media: [""],
   };
 
   if (event.body != null) {
@@ -18,14 +25,27 @@ export const main = handler(async (event) => {
     Item: {
       // The attributes of the item to be created
       userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId, // The id of the author
-      noteId: uuid.v1(), // A unique uuid
-      content: data.content, // Parsed from request body
-      attachment: data.attachment, // Parsed from request body
+      workId: uuid.v1(), // A unique uuid
+      title: data.title,
+      subtitle: data.subtitle,
+      description: data.description,
+      fecha: data.fecha,
+      client: data.client,
+      category: data.category,
+      imagenPrincipal: data.imagenPrincipal,
+      imagenesAdicionales: data.imagenesAdicionales,
+      media: data.media,
       createdAt: Date.now(), // Current Unix timestamp
     },
   };
+  
+  try {
 
-  await dynamoDb.put(params);
+    await dynamoDb.put(params);
 
-  return JSON.stringify(params.Item);
+    return JSON.stringify(params.Item);
+  } catch(e) {
+    return JSON.stringify({error: e});
+  }
+
 });

@@ -4,6 +4,7 @@ import dynamoDb from "@notes/core/dynamodb";
 
 export const main = handler(async (event) => {
   const params = {
+    //@ts-ignore
     TableName: Table.UserProfiles.tableName,
     // 'KeyConditionExpression' defines the condition for the query
     // - 'userId = :userId': only return items with matching 'userId'

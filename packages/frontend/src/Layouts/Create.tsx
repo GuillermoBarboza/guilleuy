@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LoaderButton from "../Components/LoaderButton";
 import config from "../config";
 import { API } from "aws-amplify";
-import { NoteType } from "../types/note";
+import { NoteType } from "../types/types";
 import { onError } from "../lib/errorLib";
 import { s3Upload } from "../lib/awsLib";
 
@@ -18,7 +18,7 @@ export default function Create() {
   }
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if ( event.currentTarget.files === null ) return
+    if (event.currentTarget.files === null) return;
     file.current = event.currentTarget.files[0];
   }
 
@@ -27,10 +27,10 @@ export default function Create() {
       body: note,
     });
   }
-  
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-  
+
     if (file.current && file.current.size > config.s3.MAX_ATTACHMENT_SIZE) {
       alert(
         `Please pick a file smaller than ${
@@ -39,14 +39,14 @@ export default function Create() {
       );
       return;
     }
-  
+
     setIsLoading(true);
-  
+
     try {
       const attachment = file.current
         ? await s3Upload(file.current)
         : undefined;
-  
+
       await createNote({ content, attachment });
       nav("/");
     } catch (e) {

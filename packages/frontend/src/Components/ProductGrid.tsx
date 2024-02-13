@@ -1,32 +1,4 @@
 export default function ProductGrid() {
-  const productRow = (product) => {
-    return (
-      <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-        <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-          <img
-            src="/placeholder.svg"
-            width="64"
-            height="64"
-            alt="Product image"
-            className="aspect-square rounded-md object-cover"
-          />
-        </td>
-        <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">
-          {product.name}
-        </td>
-        <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-          {product.status}
-        </td>
-        <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-          {product.inventory} in stock
-        </td>
-        <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-          {product.vendor}
-        </td>
-      </tr>
-    );
-  };
-
   return (
     <div className="NotFound text-center">
       <h3>Admin</h3>

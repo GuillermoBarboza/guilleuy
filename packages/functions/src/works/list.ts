@@ -4,20 +4,18 @@ import dynamoDb from "@notes/core/dynamodb";
 
 export const main = handler(async (event) => {
   const params = {
-    TableName: Table.Notes.tableName,
-    // 'KeyConditionExpression' defines the condition for the query
-    // - 'userId = :userId': only return items with matching 'userId'
-    //   partition key
-    KeyConditionExpression: "userId = :userId",
-    // 'ExpressionAttributeValues' defines the value in the condition
-    // - ':userId': defines 'userId' to be the id of the author
-    ExpressionAttributeValues: {
-      ":userId": event.requestContext.authorizer?.iam.cognitoIdentity.identityId,
-    },
+    TableName: Table.Works.tableName
   };
-
-  const result = await dynamoDb.query(params);
+  try {
+    
+  const result = await dynamoDb.scan(params);
 
   // Return the matching list of items in response body
   return JSON.stringify(result.Items);
+  
+  } catch (error) {
+     // Return the matching list of items in response body
+  return JSON.stringify({error: error});
+
+  }
 });

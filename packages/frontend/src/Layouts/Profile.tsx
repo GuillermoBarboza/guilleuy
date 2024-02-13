@@ -1,17 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { API, Storage, Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { onError } from "../lib/errorLib";
-import config from "../config";
 import LoaderButton from "../Components/LoaderButton";
-import { s3Upload, s3Delete } from "../lib/awsLib";
+import { s3Upload } from "../lib/awsLib";
 
 export default function UserProfile() {
   // Ref for the file input
   const file = useRef<null | File>(null);
 
   // User profile state
-  const [profile, setProfile] = useState({ username: '', email: '', profilePictureUrl: '' });
+  const [profile, setProfile] = useState({
+    username: "",
+    email: "",
+    profilePictureUrl: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch user profile on component mount
@@ -22,10 +24,14 @@ export default function UserProfile() {
         const currentUser = await Auth.currentAuthenticatedUser();
         //const userEmail = currentUser.attributes.email;
 
-        console.log(currentUser)
+        console.log(currentUser);
         // Fetch additional user profile information if needed
-        const userProfile = await API.get("notes", `/profile/${currentUser.attributes.sub}`, {});
-        console.log('PROFILE', userProfile)
+        const userProfile = await API.get(
+          "notes",
+          `/profile/${currentUser.attributes.sub}`,
+          {}
+        );
+        console.log("PROFILE", userProfile);
         setProfile({ ...userProfile });
       } catch (e) {
         onError(e);
@@ -43,7 +49,7 @@ export default function UserProfile() {
 
   // Save profile changes
   async function saveProfile(event: React.ChangeEvent<HTMLFormElement>) {
-    event.preventDefault()
+    event.preventDefault();
     setIsLoading(true);
 
     try {
@@ -54,13 +60,16 @@ export default function UserProfile() {
       } else {
         profilePictureUrl = profile.profilePictureUrl;
       }
-      console.log('profile:', profile)
+      console.log("profile:", profile);
       const currentUser = await Auth.currentAuthenticatedUser();
       // Update user profile with new data
       const userEdited = await API.put("notes", `/profile`, {
-        body: { profile: {...profile, profilePictureUrl}, sub: currentUser.attributes.sub },
+        body: {
+          profile: { ...profile, profilePictureUrl },
+          sub: currentUser.attributes.sub,
+        },
       });
-      console.log(userEdited)
+      console.log(userEdited);
       setIsLoading(false);
     } catch (e) {
       onError(e);
@@ -76,14 +85,20 @@ export default function UserProfile() {
           <label>Username</label>
           <input
             type="text"
-            placeholder={profile.username?.length > 1 ? profile.username : "Must edit name"}
-            value={profile.username || ''}
-            onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+            placeholder={
+              profile.username?.length > 1 ? profile.username : "Must edit name"
+            }
+            value={profile.username || ""}
+            onChange={(e) =>
+              setProfile({ ...profile, username: e.target.value })
+            }
           />
         </div>
         <div>
-
-          <p>Name: {profile.username?.length > 1 ? profile.username : "No Name YET"} </p>
+          <p>
+            Name:{" "}
+            {profile.username?.length > 1 ? profile.username : "No Name YET"}{" "}
+          </p>
           <p>Email: {profile.email} </p>
         </div>
         <div>
